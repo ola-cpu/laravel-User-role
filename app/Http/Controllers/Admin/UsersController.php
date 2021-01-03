@@ -91,8 +91,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        
+        // synscronisation des roles avec le checkebox 
+
          $user->roles()->sync($request->roles);
+         /* une persitance des donnes utilisé lors de la modification dans la base de donne */
+
+         $user->name = $request->name;
+         $user->email = $request->email;
+         $user->save();
 
          return redirect()->route('admin.users.index');
     }
@@ -106,7 +112,7 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         /* verificaton du droit de supression en et utilisant le gate dans le provider avec */
-         
+
         if (Gate::denies('delete-users')) {
 
            return redirect()->route('admin.users.index');
