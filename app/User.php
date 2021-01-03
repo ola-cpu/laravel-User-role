@@ -43,4 +43,10 @@ class User extends Authenticatable
 
     return $this->belongsToMany('App\Role');
    }
+
+// donner des privileges au nom admin dans la base de donne 
+   public function isAdmin(){
+
+    return $this->roles()->where('name', 'admin')->first();
+   }
 }
