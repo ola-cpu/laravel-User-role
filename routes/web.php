@@ -19,9 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+/* creaction des route automatique avec le prefix admin et ajout d'un droit de vite de page avec un middleware*/
 
-
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function() {
 
 		Route::resource('users', 'UsersController');
 

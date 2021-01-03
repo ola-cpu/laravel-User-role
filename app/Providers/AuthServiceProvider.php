@@ -25,10 +25,21 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+
+        /* gate pour specifier les droit pour parcourir certaine page */
+
+        Gate::define('manage-users', function ($user){
+
+            return $user->hasAnyRole(['auteur' , 'admin' ]);
+
+        });
+
+
         // le gate pour le droit d'editer un utilisateur
 
        Gate::define('edit-users', function ($user) {
-        return $user->isAdmin();
+        return $user->hasAnyRole(['auteur' , 'admin' ]);
+
     });
 
        //un gate pour suprimmer un utilisateur droit reseve 

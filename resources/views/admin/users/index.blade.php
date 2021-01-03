@@ -37,7 +37,14 @@
                                 <td>{{ implode(', ' , $user->roles()->get()->pluck('name')->toArray()) }}</td>
                                 
                                 <td>
-                                 <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-primary">Editer</button></a>   
+                                 @can('edit-users')
+                                 <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-primary">Editer</button></a> 
+
+                                 @endcan
+
+                                 <!-- can pour des verification sur des bouton -->
+
+                                 @can('delete-users') 
                                  
                                  <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                     @csrf
@@ -47,7 +54,7 @@
                                      
                                  </form>
 
-                                 
+                                 @endcan
 
                                 </td>
 

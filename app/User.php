@@ -49,4 +49,12 @@ class User extends Authenticatable
 
     return $this->roles()->where('name', 'admin')->first();
    }
+
+   // creaction d'une fonction pour des droit de parcours de page 
+
+   public function hasAnyRole(array $roles)
+   {
+
+     return $this->roles()->whereIn('name', $roles)->first();
+   }
 }
